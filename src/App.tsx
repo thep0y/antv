@@ -18,8 +18,8 @@ const App: React.FC = () => {
 
   return (
     <>
-      {Object.keys(charts).map(name => (
-        <button onClick={() => charts[name](chart)}>{name}</button>
+      {Object.keys(charts).map((name, idx) => (
+        <button key={idx} onClick={() => charts[name](chart)}>{name}</button>
       ))
       }
     </>
