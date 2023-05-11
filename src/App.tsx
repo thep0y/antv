@@ -1,27 +1,28 @@
-import React, { useState, lazy } from 'react'
+import React from 'react'
 import './App.css'
-import { Chart } from '@antv/g2';
-import { interval } from "./charts"
+import { Chart } from '@antv/g2'
+import { interval } from './charts'
 
+type Render = (chart: Chart) => void
 
-const charts = {
-  '条形图':interval 
+const charts: Record<string, Render> = {
+  条形图: interval
 }
-
 
 const App: React.FC = () => {
   // 初始化图表实例
   const chart = new Chart({
     container: 'root',
-    theme: 'classic',
-  });
+    theme: 'classic'
+  })
 
   return (
     <>
       {Object.keys(charts).map((name, idx) => (
-        <button key={idx} onClick={() => charts[name](chart)}>{name}</button>
-      ))
-      }
+        <button key={idx} onClick={() => { charts[name](chart) }}>
+          {name}
+        </button>
+      ))}
     </>
   )
 }
