@@ -1,28 +1,38 @@
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './App.css'
+import Header from '~/components/Header'
 import { Chart } from '@antv/g2'
-import { interval } from './charts'
-
-type Render = (chart: Chart) => void
-
-const charts: Record<string, Render> = {
-  条形图: interval
-}
 
 const App: React.FC = () => {
-  // 初始化图表实例
-  const chart = new Chart({
-    container: 'root',
-    theme: 'classic'
-  })
+  const containerRef = useRef(null)
+  const [chart, setChart] = useState<Chart | null>(null)
+  const [isContainerReady, setIsContainerReady] = useState(false)
+
+  useEffect(() => {
+    if (containerRef.current) {
+      setIsContainerReady(true)
+      setChart(new Chart({
+        container: 'container',
+        theme: 'classic'
+      }))
+    }
+  }, [containerRef])
+
+  const resetChart = (): void => {
+    if (chart) {
+      chart.clear()
+
+      chart.theme('classic')
+    }
+  }
 
   return (
     <>
-      {Object.keys(charts).map((name, idx) => (
-        <button key={idx} onClick={() => { charts[name](chart) }}>
-          {name}
-        </button>
-      ))}
+      {
+        isContainerReady && chart ? <Header chart={chart} resetChart={resetChart} /> : null
+      }
+
+      <div id="container" ref={containerRef}></div>
     </>
   )
 }
