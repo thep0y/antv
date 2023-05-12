@@ -23,5 +23,15 @@ export const graph = (chart: Chart): void => {
         ]
       }
     )
+    .layout({ joint: false })
+    .style({
+      linkStrokeWidth: (n) => {
+        console.log(n)
+
+        return n.value
+      },
+      nodeStrokeWidth: 1.2
+    })
+
   void chart.render()
 }
