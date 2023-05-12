@@ -11,6 +11,7 @@ const WARNING = 1;
 const ERROR = 2;
 
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true,
@@ -18,6 +19,7 @@ module.exports = {
   extends: ["plugin:react/recommended", "standard-with-typescript"],
   overrides: [],
   parserOptions: {
+    tsconfigRootDir: __dirname,
     project: ["tsconfig.json", "tsconfig.node.json"],
     ecmaVersion: "latest",
     sourceType: "module",
