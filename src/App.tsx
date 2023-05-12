@@ -11,19 +11,19 @@ const App: React.FC = () => {
   useEffect(() => {
     if (containerRef.current) {
       setIsContainerReady(true)
-      setChart(new Chart({
-        container: 'container',
-        theme: 'classic'
-      }))
+      newChart()
     }
   }, [containerRef])
 
-  const resetChart = (): void => {
-    if (chart) {
-      chart.clear()
+  const newChart = (): void => {
+    setChart(new Chart({
+      container: 'container',
+      theme: 'classic'
+    }))
+  }
 
-      chart.theme('classic')
-    }
+  const resetChart = (): void => {
+    if (chart) newChart()
   }
 
   return (
